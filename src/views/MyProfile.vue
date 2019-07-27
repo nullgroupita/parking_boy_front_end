@@ -1,12 +1,13 @@
 <template>
 <div>
-  <mt-header fixed title="订单"></mt-header>
+  <mt-header fixed title="个人"></mt-header>
+hahaha
 </div>
 </template>
 
 <script>
 export default {
-  name: 'OrderList',
+  name: 'MyProfile',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

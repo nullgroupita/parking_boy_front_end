@@ -1,18 +1,23 @@
 <template>
+  <div>
   <mt-tabbar v-model="selected">
-    <mt-tab-item id="order-list">
+    <mt-tab-item id="order-list" style="width: 80%;height: 80%;" >
+      <img slot="icon" src="../assets/img/order-list.svg">
       抢单
     </mt-tab-item>
     <mt-tab-item id="park-fetch">
+      <img slot="icon" src="../assets/img/home.svg">
       停取
     </mt-tab-item>
-    <mt-tab-item id="发现">
+    <mt-tab-item id="history">
+      <img slot="icon" src="../assets/img/history-list.svg">
       历史
     </mt-tab-item>
-    <mt-tab-item id="我的">
+    <mt-tab-item id="my-profile">
+      <img slot="icon" src="../assets/img/my-profile.svg">
       个人
     </mt-tab-item>
-  </mt-tabbar>
+  </mt-tabbar></div>
 </template>
 
 <script>
@@ -24,14 +29,9 @@ export default {
     }
   },
   methods: {
-    // gotoOrders: function () {
-    //   console.log(1233)
-    //   this.$router.push('/order-list')
-    // }
   },
   watch: {
     selected: function (newValue) {
-      console.log('=-==', newValue)
       this.$router.push(newValue)
     }
   }

@@ -1,5 +1,6 @@
 <template>
 <div>
+  <mt-header fixed title="停车地点"></mt-header>
 hahaha222222222
 </div>
 </template>
