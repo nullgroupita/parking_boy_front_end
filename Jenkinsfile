@@ -6,9 +6,9 @@ pipeline {
         sh '''cd /root/.jenkins/workspace/parking_boy_front_end_dev/dist
 sudo tar czvf boy.tar ./
 
-scp -i /keys/null.pem boy.tar centos@3.112.193.240:/tmp
+sudo scp -i /keys/null.pem boy.tar centos@3.112.193.240:/tmp
 
-ssh centos@3.112.193.240 -i /keys/null.pem > /dev/null 2>&1 <<\\ eeooff
+sudo ssh centos@3.112.193.240 -i /keys/null.pem > /dev/null 2>&1 <<\\ eeooff
 
 sudo rm -rf  /usr/share/nginx/html/boy/*
 sudo cp /tmp/boy.tar  /usr/share/nginx/html/boy
