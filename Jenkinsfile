@@ -1,21 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('NPM Install') {
-      steps {
-        sh 'npm install'
-      }
-    }
-    stage('NPM Build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
     stage('Deploy To Staging') {
       steps {
-        sh '''#!/bash/sh
-
-sudo cd /root/.jenkins/workspace/parking_boy_front_end_dev/dist
+        sh '''sudo cd /root/.jenkins/workspace/parking_boy_front_end_dev/dist
 sudo tar czvf boy.tar ./
 
 scp -i /keys/null.pem boy.tar centos@3.112.193.240:/tmp
