@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <MenuBar/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import MenuBar from './components/MenuBar'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {MenuBar}
 }
 </script>
 
