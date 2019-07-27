@@ -1,7 +1,17 @@
 pipeline {
   agent any
   stages {
-    stage('Deploy To Staging') {
+    stage('NPM Install') {
+      steps {
+        sh 'npm install'
+      }
+    }
+    stage('NPM Build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+    stage('Deploy To Product') {
       steps {
         sh '''cd /root/.jenkins/workspace/parking_boy_front_end_dev/dist
 tar czvf /tmp/boy.tar ./ --warning=no-file-changed
