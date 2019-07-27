@@ -5,10 +5,13 @@ import App from './App'
 import router from './router'
 import store from './store'
 import Mint from 'mint-ui'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import 'mint-ui/lib/style.css'
 
 Vue.config.productionTip = false
 Vue.use(Mint)
+Vue.use(ElementUI)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
