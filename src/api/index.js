@@ -73,7 +73,7 @@ async function login (params) {
 
 const api = {
   getAllOrders,
-  getParkingLotByBoyId
+  getParkingLotByBoyId,
   login
 }
 export default api

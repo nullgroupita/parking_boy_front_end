@@ -1,24 +1,27 @@
 <template>
 <div>
   <mt-header fixed title="订单"></mt-header>
-    <el-row v-for="(item, index) in list" :key="index" class="item-content" @click.native="grabOrder(item)">
-      <el-col :span="5">
-        <img src="../assets/img/car.svg" class="item-icon">
-      </el-col>
-      <el-col :span="19" class="item-detail">
-        <el-row class="item-title">
-          {{item.carNumber}}
-          {{item.status === 0 ? '(parking)' : '(fetching)'}}
-        </el-row>
-        <el-row>
-          <el-col :span="15">
-            {{item.parkingTime}}
-          </el-col>
-          <el-col :span="9" class="item-status-type">Grab the order</el-col>
-        </el-row>
-        <el-row>{{item.fetchPosition}}</el-row>
-      </el-col>
-    </el-row>
+  <el-row v-for="(item, index) in list" :key="index" class="item-content" @click.native="grabOrder(item.id)">
+    <el-col :span="5">
+      <img src="../assets/img/car.svg" class="item-icon">
+    </el-col>
+    <el-col :span="19" class="item-detail">
+      <el-row class="item-title">
+        {{item.carNumber}}
+        {{item.status === 0 ? '(parking)' : '(fetching)'}}
+      </el-row>
+      <el-row>
+        <el-col :span="15">
+          {{item.parkingTime}}
+        </el-col>
+        <el-col :span="9" class="item-status-type">
+          Grab the order
+          <i class="el-icon-arrow-right"></i>
+        </el-col>
+      </el-row>
+      <el-row>{{item.fetchPosition}}</el-row>
+    </el-col>
+  </el-row>
 </div>
 </template>
 
@@ -29,38 +32,16 @@ export default {
   data () {
     return {
       loading: false,
-      list: [
-        {
-          id: '1',
-          carNumber: 'C6936',
-          parkingTime: '2019-08-01 10:10',
-          fetchPosition: 'Baiyun airport',
-          status: 0
-        },
-        {
-          id: '2',
-          carNumber: 'C6936',
-          parkingTime: '2019-08-01 10:10',
-          fetchPosition: 'Baiyun airport',
-          status: 0
-        },
-        {
-          id: '3',
-          carNumber: 'C6936',
-          parkingTime: '2019-08-01 10:10',
-          fetchPosition: 'Baiyun airport',
-          status: 1
-        }
-      ]
+      list: [],
+      parkingBoyId: '1'
     }
   },
   methods: {
-    grabOrder (order) {
-      this.$router.push('parking-lots')
+    grabOrder (orderId) {
+      this.$router.push({name: 'ParkingLotList', params: {orderId: orderId, parkingBoyId: this.parkingBoyId}})
     },
     async getAllOrders () {
-      let data = await api.getAllOrders()
-      this.list = data
+      this.list = await api.getAllOrders()
     }
   },
   mounted () {
@@ -73,6 +54,7 @@ export default {
 <style scoped>
   .item-content {
     margin-bottom: 15px;
+    border-bottom: 1px solid #a3a1a1;
   }
 
   .item-icon {

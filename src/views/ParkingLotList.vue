@@ -2,11 +2,17 @@
 <div>
   <mt-header fixed title="订单:选择停车场">
     <router-link to="/order-list" slot="left">
-      <mt-button class="el-icon-arrow-left icon-back"></mt-button>
+      <mt-button>
+        <img src="../assets/img/icon_left.svg" height="20" width="20" slot="icon">返回
+      </mt-button>
     </router-link>
   </mt-header>
   <el-row v-for="item in parkingLotList" :key="item.id" class="item-content" @click.native="selectParkingLot(item)">
-    <el-col :span="16" class="item-title">{{item.name}}</el-col>
+    <el-col :span="2" class="icon-position"><img src="../assets/img/parking-box-line.svg" width="130%"></el-col>
+    <el-col :span="14" style="margin-left: 10px; padding-bottom: 5px;">
+      <el-row class="item-title">{{item.name}}</el-row>
+      <el-row class="item-address">地点：{{item.postion}}</el-row>
+    </el-col>
     <el-col :span="8" class="item-rate">
       {{item.nowAvailable}} / {{item.capacity}}
     </el-col>
@@ -15,29 +21,13 @@
 </template>
 
 <script>
+import api from '../api/index'
 export default {
   data () {
     return {
-      parkingLotList: [
-        {
-          id: '1',
-          name: 'ParkingLot-1',
-          capacity: 30,
-          nowAvailable: 10
-        },
-        {
-          id: '2',
-          name: 'ParkingLot-2',
-          capacity: 20,
-          nowAvailable: 5
-        },
-        {
-          id: '3',
-          name: 'ParkingLot-3',
-          capacity: 50,
-          nowAvailable: 30
-        }
-      ]
+      parkingLotList: [],
+      orderId: '',
+      parkingBoyId: ''
     }
   },
   methods: {
@@ -47,8 +37,27 @@ export default {
         iconClass: 'el-icon-success',
         duration: 500
       })
-      console.log(parkingLot)
+      this.$router.push({name: 'OrderDetail', params: {parkingLot: parkingLot}})
+    },
+    async getParkingLotByBoyId (parkingBoyId) {
+      let parkingLots = await api.getParkingLotByBoyId(parkingBoyId)
+      if (parkingLots) {
+        this.parkingLotList = parkingLots.filter(parkingLot => parkingLot.nowAvailable > 0)
+      }
+      if (this.parkingLotList.length === 0) {
+        this.$toast({
+          message: '当前没有可用的停车场',
+          iconClass: 'el-icon-error',
+          duration: 500
+        })
+        this.$router.push('/order-list')
+      }
     }
+  },
+  mounted () {
+    this.orderId = this.$route.params.orderId
+    this.parkingBoyId = this.$route.params.parkingBoyId
+    this.getParkingLotByBoyId(this.parkingBoyId)
   }
 }
 </script>
@@ -57,6 +66,7 @@ export default {
 <style scoped>
   .item-content {
     margin-bottom: 20px;
+    border-bottom: 1px solid #a3a1a1;
   }
 
   .item-title {
@@ -67,15 +77,20 @@ export default {
     text-align: left;
   }
 
+  .item-address {
+    padding-left: 10px;
+    text-align: left;
+    font-size: 14px;
+    color:  #a3a1a1;
+  }
+
   .item-rate {
     font-size: 16px;
     line-height: 22px;
     color: #a3a1a1;
     text-align: end;
     padding-right: 15px;
-  }
-
-  .icon-back {
-    font-size: 20px;
+    margin-left: -10px;
+    padding-top: 5px;
   }
 </style>
