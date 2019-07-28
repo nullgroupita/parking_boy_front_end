@@ -1,12 +1,16 @@
 <template>
 <div>
-  <mt-header fixed title="订单:选择停车场"></mt-header>
-    <el-row v-for="item in parkingLotList" :key="item.id" class="item-content" @click.native="selectParkingLot(item)">
-      <el-col :span="16" class="item-title">{{item.name}}</el-col>
-      <el-col :span="8" class="item-rate">
-        {{item.nowAvailable}} / {{item.capacity}}
-      </el-col>
-    </el-row>
+  <mt-header fixed title="订单:选择停车场">
+    <router-link to="/order-list" slot="left">
+      <mt-button class="el-icon-arrow-left icon-back"></mt-button>
+    </router-link>
+  </mt-header>
+  <el-row v-for="item in parkingLotList" :key="item.id" class="item-content" @click.native="selectParkingLot(item)">
+    <el-col :span="16" class="item-title">{{item.name}}</el-col>
+    <el-col :span="8" class="item-rate">
+      {{item.nowAvailable}} / {{item.capacity}}
+    </el-col>
+  </el-row>
 </div>
 </template>
 
@@ -69,5 +73,9 @@ export default {
     color: #a3a1a1;
     text-align: end;
     padding-right: 15px;
+  }
+
+  .icon-back {
+    font-size: 20px;
   }
 </style>

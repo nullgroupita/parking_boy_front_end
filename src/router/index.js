@@ -6,6 +6,7 @@ import ParkFetchCar from '../views/ParkFetchCar'
 import History from '../views/History'
 import MyProfile from '../views/MyProfile'
 import Login from '../views/Login'
+import ParkingLotList from '../views/ParkingLotList'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
         }
       ],
       redirect: '/order-list'
+    },
+    {
+      path: '/parking-lots',
+      name: 'ParkingLotList',
+      component: ParkingLotList
     }
   ]
 })
