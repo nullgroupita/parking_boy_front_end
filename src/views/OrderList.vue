@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import api from '../api/index'
 export default {
   name: 'OrderList',
   data () {
@@ -56,7 +57,14 @@ export default {
   methods: {
     grabOrder (order) {
       this.$router.push('parking-lots')
+    },
+    async getAllOrders () {
+      let data = await api.getAllOrders()
+      this.list = data
     }
+  },
+  mounted () {
+    this.getAllOrders()
   }
 }
 </script>
