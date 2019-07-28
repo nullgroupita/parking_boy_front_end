@@ -33,16 +33,17 @@ export default {
   data () {
     return {
       loading: false,
-      list: [],
-      parkingBoyId: '1'
+      list: []
+      // parkingBoyId: this.$store.state.user.id
     }
   },
   methods: {
     grabOrder (orderId) {
-      this.$router.push({name: 'ParkingLotList', params: {orderId: orderId, parkingBoyId: this.parkingBoyId}})
+      this.$router.push({name: 'ParkingLotList', params: {orderId: orderId}})
     },
     async getAllOrders () {
       this.list = await api.getAllOrders()
+      console.log('all', this.list)
     }
   },
   mounted () {

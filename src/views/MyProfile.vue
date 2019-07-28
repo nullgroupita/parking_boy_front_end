@@ -27,7 +27,7 @@ export default {
   methods: {
   },
   mounted () {
-    this.$store.dispatch('getParkingBoyInformation')
+    // this.$store.dispatch('getParkingBoyInformation')
     this.$store.commit(CHANGE_ACTIVE_MENU, MENU_MY_PROFILE)
   }
 }

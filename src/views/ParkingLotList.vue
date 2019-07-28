@@ -27,17 +27,26 @@ export default {
     return {
       parkingLotList: [],
       orderId: '',
-      parkingBoyId: ''
+      parkingBoyId: this.$store.state.user.id
     }
   },
   methods: {
-    selectParkingLot (parkingLot) {
-      this.$toast({
-        message: '抢单成功',
-        iconClass: 'el-icon-success',
-        duration: 500
-      })
-      this.$router.push({name: 'OrderDetail', params: {parkingLot: parkingLot}})
+    async selectParkingLot (parkingLot) {
+      let queryObject = {
+        orderId: this.orderId,
+        parkingBoyId: this.parkingBoyId,
+        parkingLotId: parkingLot.id
+      }
+      let response = await api.updateOrder(queryObject)
+
+      if (response.retCode === 200 && response.data.status === 1) {
+        this.$toast({
+          message: '抢单成功',
+          iconClass: 'el-icon-success',
+          duration: 500
+        })
+        this.$router.push({name: 'OrderDetail', params: {order: response.data}})
+      }
     },
     async getParkingLotByBoyId (parkingBoyId) {
       let parkingLots = await api.getParkingLotByBoyId(parkingBoyId)
@@ -56,7 +65,7 @@ export default {
   },
   mounted () {
     this.orderId = this.$route.params.orderId
-    this.parkingBoyId = this.$route.params.parkingBoyId
+    // this.parkingBoyId = this.$route.params.parkingBoyId
     this.getParkingLotByBoyId(this.parkingBoyId)
   }
 }

@@ -7,6 +7,7 @@
 
 <script>
 import MenuBar from '../components/MenuBar'
+// import {CHANGE_ACTIVE_MENU, MENU_MY_PROFILE} from '../common/constants/constants'
 export default {
   name: 'OrderList',
   components: {MenuBar},
@@ -14,6 +15,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  mounted () {
+    this.$store.dispatch('getParkingBoyInformation')
+    // this.$store.commit(CHANGE_ACTIVE_MENU, MENU_MY_PROFILE)
   }
 }
 </script>

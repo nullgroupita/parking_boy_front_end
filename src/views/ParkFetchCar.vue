@@ -23,50 +23,31 @@
 </template>
 
 <script>
+import api from '../api/index'
 import {CHANGE_ACTIVE_MENU, MENU_PARK_FETCH} from '../common/constants/constants'
 
 export default {
   name: 'ParkFetchCar',
   data () {
     return {
-      list: [
-        {
-          id: '1',
-          carNumber: 'C6936',
-          parkingTime: '2019-08-01 10:10',
-          fetchPosition: 'Baiyun airport',
-          status: 2,
-          parkingLot: 'one lot',
-          position: 'jinwan'
-        },
-        {
-          id: '2',
-          carNumber: 'C6936',
-          parkingTime: '2019-08-01 10:10',
-          fetchPosition: 'Baiyun airport',
-          status: 0,
-          parkingLot: 'one lot',
-          position: 'jinwan'
-        },
-        {
-          id: '3',
-          carNumber: 'C6936',
-          parkingTime: '2019-08-01 10:10',
-          fetchPosition: 'Baiyun airport',
-          status: 4,
-          parkingLot: 'one lot',
-          position: 'jinwan'
-        }
-      ]
+      list: [],
+      parkingBoyId: this.$store.state.user.id
     }
   },
   methods: {
     showOrderDetail: function (item) {
       this.$router.push({name: 'OrderDetail', params: {order: item}})
+    },
+    async getAllUnCompletedOrders () {
+      let response = await api.getAllUnCompletedOrders(this.parkingBoyId)
+      if (response.retCode === 200) {
+        this.list = response.data
+      }
     }
   },
   mounted () {
     this.$store.commit(CHANGE_ACTIVE_MENU, MENU_PARK_FETCH)
+    this.getAllUnCompletedOrders()
   }
 }
 </script>
