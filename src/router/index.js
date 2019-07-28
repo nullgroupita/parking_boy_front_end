@@ -47,7 +47,6 @@ export default new Router({
       redirect: '/order-list'
     },
     {
-      component: ParkingLotList
       path: '/order-detail',
       name: 'OrderDetail',
       component: OrderDetail
