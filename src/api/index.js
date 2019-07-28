@@ -62,8 +62,18 @@ async function login (params) {
   }
 }
 
+async function getParkingBoyInformation () {
+  try {
+    const response = await axios.get('/employees/0')
+    return response.data.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   getAllOrders,
-  login
+  login,
+  getParkingBoyInformation
 }
 export default api
