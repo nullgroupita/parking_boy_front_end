@@ -1,5 +1,7 @@
 import axios from 'axios'
 import cookies from 'vue-cookies'
+import router from '../router'
+import {Toast} from 'mint-ui'
 
 axios.interceptors.request.use(
   config => {
@@ -13,6 +15,22 @@ axios.interceptors.request.use(
       }
     }
     return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
+axios.interceptors.response.use(
+  response => {
+    if (response.data.retCode === 501) {
+      router.push('login')
+      Toast({
+        message: '请先登录',
+        iconClass: 'el-icon-error'
+      })
+    }
+    return response
   },
   error => {
     return Promise.reject(error)
