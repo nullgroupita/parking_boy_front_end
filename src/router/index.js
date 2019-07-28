@@ -7,6 +7,7 @@ import History from '../views/History'
 import MyProfile from '../views/MyProfile'
 import Login from '../views/Login'
 import ParkingLotList from '../views/ParkingLotList'
+import OrderDetail from '../views/ParkCarDetail'
 
 Vue.use(Router)
 
@@ -44,6 +45,12 @@ export default new Router({
         }
       ],
       redirect: '/order-list'
+    },
+    {
+      component: ParkingLotList
+      path: '/order-detail',
+      name: 'OrderDetail',
+      component: OrderDetail
     },
     {
       path: '/parking-lots',

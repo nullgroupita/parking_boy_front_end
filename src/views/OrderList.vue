@@ -3,7 +3,7 @@
   <mt-header fixed title="订单"></mt-header>
     <el-row v-for="(item, index) in list" :key="index" class="item-content" @click.native="grabOrder(item)">
       <el-col :span="5">
-        <img src="../assets/car.svg" class="item-icon">
+        <img src="../assets/img/car.svg" class="item-icon">
       </el-col>
       <el-col :span="19" class="item-detail">
         <el-row class="item-title">
