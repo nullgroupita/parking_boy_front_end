@@ -41,7 +41,7 @@ axios.interceptors.response.use(
 async function getAllOrders () {
   try {
     let response = await axios.get('/orders')
-    return response.data || []
+    return response.data.data || []
   } catch (e) {
     console.log(e)
   }
@@ -80,10 +80,31 @@ async function getParkingBoyInformation () {
   }
 }
 
+async function updateOrder (params) {
+  try {
+    const response = await axios.patch('/orders', params)
+    console.log(response)
+    return response.data || []
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+async function getAllUnCompletedOrders (parkingBoyId) {
+  try {
+    let response = await axios.get(`/employees/${parkingBoyId}/orders?finish=false`)
+    return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const api = {
   getAllOrders,
   login,
   getParkingLotByBoyId,
-  getParkingBoyInformation
+  getParkingBoyInformation,
+  updateOrder,
+  getAllUnCompletedOrders
 }
 export default api
