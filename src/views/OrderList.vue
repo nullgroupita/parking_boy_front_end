@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     grabOrder (order) {
-      this.$alert(order.id + '=>' + order.carNumber)
+      this.$router.push('parking-lots')
     }
   }
 }
@@ -69,12 +69,12 @@ export default {
 
   .item-icon {
     width: 50%;
-    margin-top: 5%;
+    margin-top: 20%;
   }
 
   .item-title {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 25px;
   }
 
@@ -85,8 +85,8 @@ export default {
   .item-detail {
     text-align: left;
     line-height: 22px;
-    font-size: 18px;
+    font-size: 12px;
     list-style-type: none;
-     margin-bottom: 5px;
+    margin-bottom: 5px;
   }
 </style>
