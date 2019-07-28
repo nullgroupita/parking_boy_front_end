@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import api from '../api'
 export default {
   name: 'OrderList',
   data () {
@@ -20,8 +21,17 @@ export default {
     }
   },
   methods: {
-    onLogin: function () {
-      this.$router.push('/home')
+    async onLogin () {
+      let loginInformation = {
+        telephone: this.username,
+        password: this.password
+      }
+      let isLogin = await api.login(loginInformation)
+      if (isLogin) {
+        this.$router.push('/order-list')
+      } else {
+        this.$toast('用户名或密码错误')
+      }
     },
     onReset: function () {
       this.username = ''
