@@ -2,6 +2,7 @@ import axios from 'axios'
 import cookies from 'vue-cookies'
 import router from '../router'
 import {Toast} from 'mint-ui'
+import md5 from 'md5'
 
 axios.interceptors.request.use(
   config => {
@@ -57,6 +58,7 @@ async function getParkingLotByBoyId (id) {
 
 async function login (params) {
   try {
+    params.password = md5(params.password)
     const response = await axios.post('/login', params)
     if (response.data.retCode === 200) {
       // set token
