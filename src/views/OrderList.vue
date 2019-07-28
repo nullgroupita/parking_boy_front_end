@@ -27,6 +27,7 @@
 
 <script>
 import api from '../api/index'
+import {CHANGE_ACTIVE_MENU, MENU_ORDER_LIST} from '../common/constants/constants'
 export default {
   name: 'OrderList',
   data () {
@@ -46,6 +47,7 @@ export default {
   },
   mounted () {
     this.getAllOrders()
+    this.$store.commit(CHANGE_ACTIVE_MENU, MENU_ORDER_LIST)
   }
 }
 </script>
@@ -59,7 +61,7 @@ export default {
 
   .item-icon {
     width: 50%;
-    margin-top: 20%;
+    margin-top: 5%;
   }
 
   .item-title {

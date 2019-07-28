@@ -50,7 +50,7 @@ async function getAllOrders () {
 async function getParkingLotByBoyId (id) {
   try {
     let response = await axios.get(`/employees/${id}/parking-lots`)
-    return response.data || []
+    return response.data.data || []
   } catch (e) {
     console.log(e)
   }

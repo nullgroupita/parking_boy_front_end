@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import {CHANGE_ACTIVE_MENU, MENU_PARK_FETCH} from '../common/constants/constants'
+
 export default {
   name: 'ParkFetchCar',
   data () {
@@ -62,6 +64,9 @@ export default {
     showOrderDetail: function (item) {
       this.$router.push({name: 'OrderDetail', params: {order: item}})
     }
+  },
+  mounted () {
+    this.$store.commit(CHANGE_ACTIVE_MENU, MENU_PARK_FETCH)
   }
 }
 </script>

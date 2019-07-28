@@ -3,7 +3,8 @@ const state = {
     name: '',
     telephone: '',
     parkingLots: []
-  }
+  },
+  activeMenu: ''
 }
 
 export default state

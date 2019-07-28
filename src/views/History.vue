@@ -6,12 +6,17 @@ hahaha
 </template>
 
 <script>
+import {CHANGE_ACTIVE_MENU, MENU_HISTORY} from '../common/constants/constants'
+
 export default {
   name: 'History',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  mounted () {
+    this.$store.commit(CHANGE_ACTIVE_MENU, MENU_HISTORY)
   }
 }
 </script>

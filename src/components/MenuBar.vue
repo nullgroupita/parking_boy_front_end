@@ -1,12 +1,12 @@
 <template>
   <div>
   <mt-tabbar v-model="selected">
-    <mt-tab-item id="order-list" style="width: 80%;height: 80%;" >
+    <mt-tab-item id="order-list">
       <img slot="icon" src="../assets/img/order-list.svg">
       抢单
     </mt-tab-item>
     <mt-tab-item id="park-fetch">
-      <img slot="icon" src="../assets/img/home.svg">
+      <img slot="icon" src="../assets/img/car.svg">
       停取
     </mt-tab-item>
     <mt-tab-item id="history">
@@ -21,18 +21,20 @@
 </template>
 
 <script>
+
 export default {
   name: 'MenuBar',
   data () {
-    return {
-      selected: 'order-list'
-    }
+    return {}
   },
-  methods: {
-  },
-  watch: {
-    selected: function (newValue) {
-      this.$router.push(newValue)
+  computed: {
+    selected: {
+      get: function () {
+        return this.$store.state.activeMenu
+      },
+      set: function (newValue) {
+        this.$router.push(newValue)
+      }
     }
   }
 }

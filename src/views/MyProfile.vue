@@ -16,6 +16,8 @@
 
 <script>
 // import api from '../api'
+import {CHANGE_ACTIVE_MENU, MENU_MY_PROFILE} from '../common/constants/constants'
+
 export default {
   name: 'MyProfile',
   data () {
@@ -26,6 +28,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('getParkingBoyInformation')
+    this.$store.commit(CHANGE_ACTIVE_MENU, MENU_MY_PROFILE)
   }
 }
 </script>
