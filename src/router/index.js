@@ -6,6 +6,7 @@ import ParkFetchCar from '../views/ParkFetchCar'
 import History from '../views/History'
 import MyProfile from '../views/MyProfile'
 import Login from '../views/Login'
+import OrderDetail from '../views/ParkCarDetail'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
         }
       ],
       redirect: '/order-list'
+    },
+    {
+      path: '/order-detail',
+      name: 'OrderDetail',
+      component: OrderDetail
     }
   ]
 })
