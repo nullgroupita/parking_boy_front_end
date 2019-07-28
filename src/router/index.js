@@ -8,6 +8,7 @@ import MyProfile from '../views/MyProfile'
 import Login from '../views/Login'
 import ParkingLotList from '../views/ParkingLotList'
 import OrderDetail from '../views/ParkCarDetail'
+import ParkingLotsDetail from '../views/ParkLotsDetail'
 
 Vue.use(Router)
 
@@ -55,6 +56,11 @@ export default new Router({
       path: '/parking-lots',
       name: 'ParkingLotList',
       component: ParkingLotList
+    },
+    {
+      path: '/parking-lots-detail',
+      name: 'ParkingLotDetail',
+      component: ParkingLotsDetail
     }
   ]
 })
