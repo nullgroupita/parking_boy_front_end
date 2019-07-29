@@ -1,21 +1,21 @@
 <template>
 <div>
   <mt-header fixed title="订单"></mt-header>
-  <el-row v-for="(item, index) in list" :key="index" class="item-content" @click.native="grabOrder(item.id)">
+  <el-row v-for="(item, index) in list" :key="index" class="item-content" @click.native="grabOrder(item)">
     <el-col :span="5">
       <img src="../assets/img/car.svg" class="item-icon">
     </el-col>
     <el-col :span="19" class="item-detail">
       <el-row class="item-title">
         {{item.carNumber}}
-        {{item.status === 0 ? '(parking)' : '(fetching)'}}
+        {{item.status === 0 ? '(停车)' : '(取车)'}}
       </el-row>
       <el-row>
         <el-col :span="15">
           {{item.parkingTime}}
         </el-col>
         <el-col :span="9" class="item-status-type">
-          Grab the order
+          抢单
           <i class="el-icon-arrow-right"></i>
         </el-col>
       </el-row>
@@ -27,7 +27,7 @@
 
 <script>
 import api from '../api/index'
-import {CHANGE_ACTIVE_MENU, MENU_ORDER_LIST} from '../common/constants/constants'
+import {CHANGE_ACTIVE_MENU, CURRENT_ORDER, MENU_ORDER_LIST} from '../common/constants/constants'
 export default {
   name: 'OrderList',
   data () {
@@ -38,12 +38,28 @@ export default {
     }
   },
   methods: {
-    grabOrder (orderId) {
-      this.$router.push({name: 'ParkingLotList', params: {orderId: orderId}})
+    async grabOrder (order) {
+      this.$store.commit(CURRENT_ORDER, order)
+      if (order.status === 0) {
+        this.$router.push({name: 'ParkingLotList', params: {orderId: order.id}})
+      } else {
+        let queryObject = {
+          orderId: order.id,
+          parkingBoyId: this.parkingBoyId
+        }
+        let response = await api.updateOrder(queryObject)
+        if (response.retCode === 200) {
+          this.$toast({
+            message: '抢单成功',
+            iconClass: 'el-icon-success',
+            duration: 500
+          })
+          this.$router.push({name: 'OrderDetail', params: {order: response.data, orderId: this.orderId}})
+        }
+      }
     },
     async getAllOrders () {
       this.list = await api.getAllOrders()
-      console.log('all', this.list)
     }
   },
   mounted () {

@@ -42,15 +42,15 @@ export default {
   data () {
     return {
       order: {},
-      status: ''
+      status: '',
+      orderId: ''
     }
   },
   methods: {
     async fetchCar () {
       let queryObject = {
-        orderId: this.order.id
+        orderId: this.$store.state.current_order.id
       }
-      console.log(queryObject)
       let response = await api.updateOrder(queryObject)
 
       if (response.retCode === 200) {
@@ -62,7 +62,9 @@ export default {
     }
   },
   mounted () {
+    console.log('orde', this.$route.params.order)
     this.order = this.$route.params.order
+    this.orderId = this.$route.params.orderId
   }
 }
 </script>

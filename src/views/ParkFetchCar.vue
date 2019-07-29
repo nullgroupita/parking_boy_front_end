@@ -24,7 +24,7 @@
 
 <script>
 import api from '../api/index'
-import {CHANGE_ACTIVE_MENU, MENU_PARK_FETCH} from '../common/constants/constants'
+import {CHANGE_ACTIVE_MENU, CURRENT_ORDER, MENU_PARK_FETCH} from '../common/constants/constants'
 
 export default {
   name: 'ParkFetchCar',
@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     showOrderDetail: function (item) {
+      this.$store.commit(CURRENT_ORDER, item)
       this.$router.push({name: 'OrderDetail', params: {order: item}})
     },
     async getAllUnCompletedOrders () {

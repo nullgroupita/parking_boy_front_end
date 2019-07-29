@@ -39,13 +39,13 @@ export default {
       }
       let response = await api.updateOrder(queryObject)
 
-      if (response.retCode === 200 && response.data.status === 1) {
+      if (response.retCode === 200) {
         this.$toast({
           message: '抢单成功',
           iconClass: 'el-icon-success',
           duration: 500
         })
-        this.$router.push({name: 'OrderDetail', params: {order: response.data}})
+        this.$router.push({name: 'OrderDetail', params: {order: response.data, orderId: this.orderId}})
       }
     },
     async getParkingLotByBoyId (parkingBoyId) {

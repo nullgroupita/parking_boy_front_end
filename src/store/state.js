@@ -4,7 +4,8 @@ const state = {
     telephone: '',
     parkingLots: []
   },
-  activeMenu: ''
+  activeMenu: '',
+  current_order: {}
 }
 
 export default state

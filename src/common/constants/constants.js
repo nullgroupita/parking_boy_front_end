@@ -10,3 +10,5 @@ export const MENU_PARK_FETCH = 'park-fetch'
 export const MENU_HISTORY = 'history'
 
 export const MENU_MY_PROFILE = 'my-profile'
+
+export const CURRENT_ORDER = 'current_order'
