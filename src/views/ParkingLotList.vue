@@ -38,8 +38,7 @@ export default {
         parkingLotId: parkingLot.id
       }
       let response = await api.updateOrder(queryObject)
-
-      if (response.retCode === 200) {
+      if (response.retCode && response.retCode === 200) {
         this.$toast({
           message: '抢单成功',
           iconClass: 'el-icon-success',

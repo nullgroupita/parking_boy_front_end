@@ -2,7 +2,9 @@
 <div>
   <mt-header fixed title="订单">
     <router-link to="/my-profile" slot="left">
-      <mt-button class="el-icon-arrow-left" icon-back></mt-button>
+      <mt-button>
+        <img src="../assets/img/icon_left.svg" height="20" width="20" slot="icon">返回
+      </mt-button>
     </router-link>
   </mt-header>
     <el-row v-for="(item, index) in $store.state.user.parkingLots" :key="index" class="item-content">
