@@ -8,15 +8,20 @@
     <el-col :span="19" class="item-detail">
       <el-row class="item-title">
         {{item.carNumber}}
-        {{item.status === 0 ? '(parking)' : '(fetching)'}}
+        {{(item.status===1||item.status===2) ? '(停车)' : '(取车)'}}
       </el-row>
       <el-row>
         <el-col :span="15">
-          {{item.parkingTime}}
+          {{getLocalTime(item)}}
         </el-col>
         <el-col :span="9" class="item-status-type">{{(item.status === 1||item.status===4)?'未取车':item.status===2?'正在停车':(item.status===5||item.status.status===3)?'正在还车':'已完成订单'}}</el-col>
       </el-row>
-      <el-row>{{item.fetchPosition}}</el-row>
+      <el-row>
+        <el-col :spa="12">
+          {{item.fetchPosition}}
+        </el-col>
+
+      </el-row>
     </el-col>
   </el-row>
 </div>
@@ -40,10 +45,15 @@ export default {
       this.$router.push({name: 'OrderDetail', params: {order: item}})
     },
     async getAllUnCompletedOrders () {
-      let response = await api.getAllUnCompletedOrders(this.parkingBoyId)
-      if (response.retCode === 200) {
+      let finish = false
+      let response = await api.getOrdersByEmployeeId(this.parkingBoyId, finish)
+      if (response.retCode && response.retCode === 200) {
         this.list = response.data
       }
+    },
+    getLocalTime (item) {
+      let time = item.status < 3 ? item.parkingTime : item.fetchingTime
+      return new Date(time * 1000).toLocaleDateString() + new Date(time * 1000).toLocaleTimeString()
     }
   },
   mounted () {

@@ -50,7 +50,7 @@ async function getAllOrders () {
 async function getParkingLotByBoyId (id) {
   try {
     let response = await axios.get(`/employees/${id}/parking-lots`)
-    return response.data.data || []
+    return response.data.data.pageContent || []
   } catch (e) {
     console.log(e)
   }
@@ -83,16 +83,15 @@ async function getParkingBoyInformation () {
 async function updateOrder (params) {
   try {
     const response = await axios.patch('/orders', params)
-    console.log(response)
     return response.data || []
   } catch (e) {
     console.log(e)
   }
 }
 
-async function getAllUnCompletedOrders (parkingBoyId) {
+async function getOrdersByEmployeeId (parkingBoyId, finishFlag) {
   try {
-    let response = await axios.get(`/employees/${parkingBoyId}/orders?finish=false`)
+    let response = await axios.get(`/employees/${parkingBoyId}/orders?finish=${finishFlag}`)
     return response.data
   } catch (e) {
     console.log(e)
@@ -105,6 +104,6 @@ const api = {
   getParkingLotByBoyId,
   getParkingBoyInformation,
   updateOrder,
-  getAllUnCompletedOrders
+  getOrdersByEmployeeId
 }
 export default api

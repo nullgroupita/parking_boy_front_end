@@ -12,14 +12,14 @@
       </el-row>
       <el-row>
         <el-col :span="15">
-          {{item.parkingTime}}
+          {{getLocalTime(item)}}
         </el-col>
         <el-col :span="9" class="item-status-type">
           抢单
-          <i class="el-icon-arrow-right"></i>
+          <i> ></i>
         </el-col>
       </el-row>
-      <el-row>{{item.fetchPosition}}</el-row>
+      <el-row>{{item.status === 0? item.fetchPosition: item.parkingLotName}}</el-row>
     </el-col>
   </el-row>
 </div>
@@ -59,6 +59,10 @@ export default {
     },
     async getAllOrders () {
       this.list = await api.getAllOrders()
+    },
+    getLocalTime (item) {
+      let time = item.status < 3 ? item.parkingTime : item.fetchingTime
+      return new Date(time * 1000).toLocaleDateString() + new Date(time * 1000).toLocaleTimeString()
     }
   },
   mounted () {

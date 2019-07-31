@@ -2,7 +2,9 @@
 <div>
   <mt-header fixed title="停车单详情">
     <router-link to="/park-fetch" slot="left">
-      <mt-button class="el-icon-arrow-left icon-back"></mt-button>
+      <mt-button>
+        <img src="../assets/img/icon_left.svg" height="20" width="20" slot="icon">返回
+      </mt-button>
     </router-link>
   </mt-header>
 
@@ -15,8 +17,8 @@
         {{order.carNumber}}
       </el-row>
       <el-row>
-        <el-col :span="15">
-          预约时间：{{order.fetchingTime}}
+        <el-col :span="24">
+          预约时间：{{new Date(order.fetchingTime*1000).toLocaleDateString()+ new Date(order.fetchingTime*1000).toLocaleTimeString()}}
         </el-col>
       </el-row>
       <el-row>
@@ -62,7 +64,6 @@ export default {
     }
   },
   mounted () {
-    console.log('orde', this.$route.params.order)
     this.order = this.$route.params.order
     this.orderId = this.$route.params.orderId
   }
