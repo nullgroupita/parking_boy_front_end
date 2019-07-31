@@ -50,8 +50,8 @@ export default {
     },
     async getParkingLotByBoyId (parkingBoyId) {
       let parkingLots = await api.getParkingLotByBoyId(parkingBoyId)
-      if (parkingLots) {
-        this.parkingLotList = parkingLots.filter(parkingLot => parkingLot.nowAvailable > 0)
+      if (parkingLots.pageContent.length > 0) {
+        this.parkingLotList = parkingLots.pageContent.filter(parkingLot => parkingLot.nowAvailable > 0)
       }
       if (this.parkingLotList.length === 0) {
         this.$toast({
