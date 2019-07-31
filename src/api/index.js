@@ -74,6 +74,7 @@ async function login (params) {
 async function getParkingBoyInformation () {
   try {
     const response = await axios.get(`/current-user`)
+    cookies.set('userInfo', response.data.data)
     return response.data.data
   } catch (e) {
     console.log(e)
