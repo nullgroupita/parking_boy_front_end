@@ -39,6 +39,7 @@
 
 <script>
 import api from '../api'
+import cookies from 'vue-cookies'
 export default {
   name: 'ParkFetchCar',
   data () {
@@ -50,13 +51,18 @@ export default {
   },
   methods: {
     async fetchCar () {
+      if (!this.order) {
+        this.order = cookies.get('current_order')
+      }
+      console.log(this.order)
       let queryObject = {
-        orderId: this.$store.state.current_order.id
+        orderId: this.order.id
       }
       let response = await api.updateOrder(queryObject)
 
       if (response.retCode === 200) {
         this.order = response.data
+        cookies.set('current_order', this.order)
         if (this.order.status === 3 || this.order.status === 6) {
           this.$router.push('park-fetch')
         }
@@ -65,7 +71,8 @@ export default {
   },
   mounted () {
     this.order = this.$route.params.order
-    this.orderId = this.$route.params.orderId
+    this.order = cookies.get('current_order')
+    console.log(this.order)
   }
 }
 </script>

@@ -30,7 +30,7 @@
 <script>
 import api from '../api/index'
 import {CHANGE_ACTIVE_MENU, CURRENT_ORDER, MENU_PARK_FETCH} from '../common/constants/constants'
-
+import cookies from 'vue-cookies'
 export default {
   name: 'ParkFetchCar',
   data () {
@@ -42,10 +42,14 @@ export default {
   methods: {
     showOrderDetail: function (item) {
       this.$store.commit(CURRENT_ORDER, item)
+      cookies.set('current_order', item)
       this.$router.push({name: 'OrderDetail', params: {order: item}})
     },
     async getAllUnCompletedOrders () {
       let finish = false
+      if (this.parkingBoyId === undefined) {
+        this.parkingBoyId = cookies.get('userInfo').id
+      }
       let response = await api.getOrdersByEmployeeId(this.parkingBoyId, finish)
       if (response.retCode && response.retCode === 200) {
         this.list = response.data
