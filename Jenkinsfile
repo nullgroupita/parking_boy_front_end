@@ -14,7 +14,7 @@ pipeline {
     stage('Deploy To Staging') {
       steps {
         sh '''rm -rf /usr/share/nginx/html/boy/*
-cp -R /root/.jenkins/workspace/parking_boy_front_end_dev/dist/* /usr/share/nginx/html/boy'''
+cp -R /root/.jenkins/workspace/parking_boy_front_end_dev@2/dist/* /usr/share/nginx/html/boy'''
       }
     }
   }
