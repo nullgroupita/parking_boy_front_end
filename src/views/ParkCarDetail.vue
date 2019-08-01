@@ -51,12 +51,8 @@ export default {
   },
   methods: {
     async fetchCar () {
-      if (!this.order) {
-        this.order = cookies.get('current_order')
-      }
-      console.log(this.order)
       let queryObject = {
-        orderId: this.order.id
+        orderId: this.$store.state.current_order.id
       }
       let response = await api.updateOrder(queryObject)
 
@@ -71,8 +67,7 @@ export default {
   },
   mounted () {
     this.order = this.$route.params.order
-    this.order = cookies.get('current_order')
-    console.log(this.order)
+    this.orderId = this.$route.params.orderId
   }
 }
 </script>
