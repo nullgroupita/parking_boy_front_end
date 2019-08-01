@@ -48,10 +48,12 @@ export default {
       }
     },
     async getParkingLotByBoyId (parkingBoyId) {
+      this.$loading({fullscreen: true})
       let parkingLots = await api.getParkingLotByBoyId(parkingBoyId)
-      if (parkingLots) {
+      if (parkingLots.length > 0) {
         this.parkingLotList = parkingLots.filter(parkingLot => parkingLot.nowAvailable > 0)
       }
+      this.$loading({fullscreen: true}).close()
       if (this.parkingLotList.length === 0) {
         this.$toast({
           message: '当前没有可用的停车场',

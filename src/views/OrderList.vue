@@ -34,7 +34,6 @@ export default {
     return {
       loading: false,
       list: []
-      // parkingBoyId: this.$store.state.user.id
     }
   },
   methods: {
@@ -78,11 +77,15 @@ export default {
   .item-content {
     margin-bottom: 15px;
     border-bottom: 1px solid #a3a1a1;
+    font-size: 18px;
+    line-height: 25px;
+    cursor: pointer;
   }
 
   .item-icon {
+    position: relative;
     width: 50%;
-    margin-top: 5%;
+    margin-top: 15%;
   }
 
   .item-title {

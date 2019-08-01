@@ -1,17 +1,26 @@
 <template>
 <div>
   <img slot="icon" width="100px" height="100px" src="../assets/img/logo.svg">
-  <form style="margin-top: 20px;">
-    <mt-field label="用户名" placeholder="请输入用户名" v-model="username" class="input-item"></mt-field>
-    <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password" class="input-item"></mt-field>
-      <mt-button type="primary" @click="onLogin" style="margin: 10px" fixed>登录</mt-button>
-      <mt-button type="default" @click="onReset" style="margin: 10px" fixed>重置</mt-button>
-  </form>
+    <el-col :span="20" class="login-form">
+      <el-form ref="form" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input v-model="username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input type="password" v-model="password"></el-input>
+        </el-form-item>
+      </el-form>
+    </el-col>
+    <el-col>
+      <el-button type="primary" @click="onLogin" style="margin-right: 5%">登录</el-button>
+      <el-button type="reset" @click="onReset">重置</el-button>
+    </el-col>
 </div>
 </template>
 
 <script>
 import api from '../api'
+
 export default {
   name: 'OrderList',
   data () {
@@ -21,13 +30,18 @@ export default {
     }
   },
   methods: {
-    async onLogin () {
+    onLogin () {
       let loginInformation = {
         telephone: this.username,
         password: this.password
       }
-      let isLogin = await api.login(loginInformation)
-      if (isLogin) {
+      this.callLogin(loginInformation)
+    },
+    async callLogin (loginData) {
+      this.$loading({fullscreen: true})
+      let result = await api.login(loginData)
+      this.$loading({fullscreen: true}).close()
+      if (result) {
         this.$router.push('/order-list')
       } else {
         this.$toast('用户名或密码错误')
@@ -43,8 +57,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.input-item {
-  text-align: left;
-  margin-bottom: 2%;
-}
+  .login-form {
+    margin-top: 30px;
+  }
 </style>
